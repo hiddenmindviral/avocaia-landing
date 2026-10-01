@@ -81,6 +81,9 @@
       .paywall-options { flex-direction:column; }
     }
   </style>
+  <!-- Librairies export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.umd.min.js"></script>
 </head>
 <body>
 
@@ -145,8 +148,13 @@
         <span class="result-label">✅ Courrier généré</span>
         <button class="btn-copy" onclick="copyCourrier()">📋 Copier</button>
       </div>
+      <div id="download-buttons" style="display:none;margin-bottom:1rem;display:flex;gap:0.75rem;">
+        <button onclick="downloadPDF()" style="flex:1;padding:0.7rem;background:#c9a84c;color:#1a1a2e;border:none;border-radius:3px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">📄 Télécharger PDF</button>
+        <button onclick="downloadDOCX()" style="flex:1;padding:0.7rem;background:rgba(255,255,255,0.1);color:#ffffff;border:1px solid rgba(255,255,255,0.2);border-radius:3px;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">📝 Télécharger DOCX</button>
+      </div>
       <div class="result-text" id="result-text"></div>
       <div class="result-timer" id="result-timer"></div>
+      <div id="compteur-courriers" style="display:none;font-size:0.75rem;color:var(--goldLight);margin-top:0.5rem;"></div>
     </div>
 
     <div class="paywall" id="paywall">
@@ -214,6 +222,80 @@
 </footer>
 
 <script>
+
+// ── DÉTECTION PAIEMENT & FORFAITS ─────────────
+const urlParams = new URLSearchParams(window.location.search);
+const paidParam = urlParams.get('paid'); // '1', '5', ou '15'
+
+// Initialiser le forfait depuis l'URL ou localStorage
+if(paidParam) {
+  const existing = parseInt(localStorage.getItem('avocaia_courriers_restants') || '0');
+  const nouveaux = paidParam === '1' ? 1 : paidParam === '5' ? 5 : paidParam === '15' ? 15 : 0;
+  localStorage.setItem('avocaia_courriers_restants', existing + nouveaux);
+  localStorage.setItem('avocaia_paid', 'true');
+  // Nettoyer l'URL
+  window.history.replaceState({}, '', '/particuliers');
+}
+
+function getCourrierRestants() {
+  return parseInt(localStorage.getItem('avocaia_courriers_restants') || '0');
+}
+
+function decrementCourrier() {
+  const restants = getCourrierRestants();
+  if(restants > 0) localStorage.setItem('avocaia_courriers_restants', restants - 1);
+}
+
+function showDownloadButtons() {
+  const btns = document.getElementById('download-buttons');
+  const restants = getCourrierRestants();
+  if(btns) btns.style.display = restants > 0 ? 'flex' : 'none';
+  // Afficher le compteur
+  const compteur = document.getElementById('compteur-courriers');
+  if(compteur && restants > 0) {
+    compteur.textContent = `📦 ${restants} courrier${restants > 1 ? 's' : ''} restant${restants > 1 ? 's' : ''} dans votre forfait`;
+    compteur.style.display = 'block';
+  }
+}
+
+// ── TÉLÉCHARGEMENT PDF ────────────────────────
+function downloadPDF() {
+  decrementCourrier();
+  showDownloadButtons();
+  const text = document.getElementById('result-text').textContent;
+  if(!text) return;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  const lines = doc.splitTextToSize(text, 170);
+  let y = 20;
+  lines.forEach(line => {
+    if(y > 270) { doc.addPage(); y = 20; }
+    doc.text(line, 20, y);
+    y += 6;
+  });
+  doc.save('courrier-juridique-avocaia.pdf');
+}
+
+// ── TÉLÉCHARGEMENT DOCX ───────────────────────
+async function downloadDOCX() {
+  decrementCourrier();
+  showDownloadButtons();
+  const text = document.getElementById('result-text').textContent;
+  if(!text) return;
+  const { Document, Packer, Paragraph, TextRun } = docx;
+  const paragraphs = text.split('\n').map(line =>
+    new Paragraph({ children:[new TextRun({ text:line, size:22, font:'Calibri' })] })
+  );
+  const doc = new Document({ sections:[{ properties:{}, children:paragraphs }] });
+  const blob = await Packer.toBlob(doc);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'courrier-juridique-avocaia.docx';
+  a.click(); URL.revokeObjectURL(url);
+}
+
 const CATEGORIES = {
   location: {
     title:'🏠 Courrier de location',
