@@ -7,32 +7,52 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --ink:#1a1a2e; --gold:#c9a84c; --goldLight:#e8d5a0; --parchment:#f5f0e8; --mist:#e8e4dc; --white:#ffffff; --gray:#666; --crimson:#8b1a1a; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --ink:#1a1a2e; --gold:#c9a84c; --goldLight:#e8d5a0; --parchment:#f5f0e8; --mist:#e8e4dc; --white:#ffffff; --gray:#666; }
+    html { scroll-behavior:smooth; }
     body { font-family:'Inter',sans-serif; background:var(--parchment); color:var(--ink); }
-
-    /* NAV */
     nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; background:var(--ink); position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(201,168,76,0.15); }
     .nav-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; }
     .nav-logo span { color:var(--gold); }
-    .nav-badge { font-size:0.72rem; color:var(--gold); border:1px solid rgba(201,168,76,0.3); padding:0.25rem 0.75rem; border-radius:20px; }
-
-    /* HERO */
-    .hero { background:var(--ink); padding:4rem 2rem; text-align:center; }
+    .hero { background:var(--ink); padding:3rem 2rem; text-align:center; }
     .hero-eyebrow { font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:1rem; }
     .hero-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; color:var(--white); line-height:1.1; margin-bottom:1rem; }
     .hero-title em { color:var(--gold); font-style:italic; }
-    .hero-sub { font-size:1rem; color:rgba(255,255,255,0.6); max-width:520px; margin:0 auto 2rem; line-height:1.7; }
-    .hero-stats { display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; margin-bottom:2rem; }
-    .hero-stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; color:var(--gold); display:block; }
-    .hero-stat-label { font-size:0.72rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; }
-
-    /* PRICING CARDS */
-    .pricing { background:var(--white); padding:3rem 2rem; }
+    .hero-sub { font-size:1rem; color:rgba(255,255,255,0.6); max-width:520px; margin:0 auto; line-height:1.7; }
+    .app-section { background:var(--parchment); padding:3rem 2rem; }
+    .app-inner { max-width:800px; margin:0 auto; }
     .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); font-weight:600; text-align:center; margin-bottom:0.5rem; }
-    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:900; color:var(--ink); text-align:center; margin-bottom:2rem; }
-    .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem; max-width:800px; margin:0 auto; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.5rem); font-weight:900; color:var(--ink); text-align:center; margin-bottom:1.5rem; }
+    .categories { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.5rem; }
+    .cat-btn { background:var(--white); border:1px solid var(--mist); color:var(--ink); padding:0.5rem 1rem; border-radius:20px; font-size:0.8rem; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s; }
+    .cat-btn:hover, .cat-btn.active { background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:600; }
+    .form-card { background:var(--white); border-radius:6px; padding:2rem; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+    .form-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; color:var(--ink); }
+    .field { margin-bottom:1rem; }
+    .field-label { display:block; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray); margin-bottom:0.4rem; }
+    .inp { width:100%; padding:0.8rem 1rem; border:1px solid var(--mist); border-radius:3px; font-size:0.9rem; font-family:'Inter',sans-serif; color:var(--ink); background:var(--parchment); outline:none; transition:border-color 0.2s; }
+    .inp:focus { border-color:var(--gold); background:var(--white); }
+    .btn-generate { width:100%; padding:1rem; background:var(--gold); color:var(--ink); border:none; border-radius:3px; font-size:1rem; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; transition:opacity 0.2s; margin-top:0.5rem; }
+    .btn-generate:hover { opacity:0.88; }
+    .btn-generate:disabled { opacity:0.5; cursor:not-allowed; }
+    .result-card { background:var(--ink); border-radius:6px; padding:1.75rem; margin-top:1.5rem; display:none; }
+    .result-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+    .result-label { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+    .btn-copy { background:transparent; border:1px solid rgba(201,168,76,0.4); color:var(--gold); padding:0.4rem 1rem; border-radius:2px; font-size:0.78rem; cursor:pointer; font-family:'Inter',sans-serif; }
+    .result-text { font-size:0.88rem; color:rgba(255,255,255,0.85); line-height:1.75; white-space:pre-wrap; }
+    .result-timer { font-size:0.72rem; color:var(--gold); margin-top:1rem; font-weight:600; }
+    .loading { display:none; text-align:center; padding:2rem; }
+    .spinner { width:32px; height:32px; border:3px solid var(--mist); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 1rem; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .paywall { background:var(--parchment); border:2px solid var(--gold); border-radius:6px; padding:2rem; margin-top:1.5rem; text-align:center; display:none; }
+    .paywall-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--ink); margin-bottom:0.5rem; }
+    .paywall-desc { font-size:0.88rem; color:var(--gray); margin-bottom:1.5rem; line-height:1.6; }
+    .paywall-options { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .paywall-btn { padding:0.85rem 1.5rem; border:none; border-radius:3px; font-size:0.88rem; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+    .paywall-btn.primary { background:var(--gold); color:var(--ink); }
+    .paywall-btn.secondary { background:var(--ink); color:var(--white); }
+    .pricing { background:var(--white); padding:3rem 2rem; }
+    .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem; max-width:800px; margin:2rem auto 0; }
     .pricing-card { border:1px solid var(--mist); border-radius:4px; padding:1.75rem; position:relative; background:var(--parchment); }
     .pricing-card.featured { background:var(--ink); border-color:var(--gold); }
     .pricing-badge-card { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--gold); color:var(--ink); font-size:0.65rem; font-weight:700; padding:0.2rem 0.85rem; border-radius:20px; white-space:nowrap; }
@@ -50,74 +70,24 @@
     .btn-pricing { display:block; width:100%; padding:0.9rem; background:var(--ink); color:var(--white); border:none; border-radius:3px; font-size:0.9rem; font-weight:600; cursor:pointer; text-align:center; font-family:'Inter',sans-serif; transition:opacity 0.2s; }
     .pricing-card.featured .btn-pricing { background:var(--gold); color:var(--ink); }
     .btn-pricing:hover { opacity:0.88; }
-
-    /* APP */
-    .app-section { background:var(--parchment); padding:3rem 2rem; }
-    .app-inner { max-width:800px; margin:0 auto; }
-
-    /* CATEGORIES */
-    .categories { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.5rem; }
-    .cat-btn { background:var(--white); border:1px solid var(--mist); color:var(--ink); padding:0.5rem 1rem; border-radius:20px; font-size:0.8rem; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s; }
-    .cat-btn:hover, .cat-btn.active { background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:600; }
-
-    /* FORMULAIRE */
-    .form-card { background:var(--white); border-radius:6px; padding:2rem; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
-    .form-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; color:var(--ink); }
-    .field { margin-bottom:1rem; }
-    .field-label { display:block; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray); margin-bottom:0.4rem; }
-    .inp { width:100%; padding:0.8rem 1rem; border:1px solid var(--mist); border-radius:3px; font-size:0.9rem; font-family:'Inter',sans-serif; color:var(--ink); background:var(--parchment); outline:none; transition:border-color 0.2s; }
-    .inp:focus { border-color:var(--gold); background:var(--white); }
-    .inp-select { appearance:none; cursor:pointer; }
-    .btn-generate { width:100%; padding:1rem; background:var(--gold); color:var(--ink); border:none; border-radius:3px; font-size:1rem; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; transition:opacity 0.2s; margin-top:0.5rem; }
-    .btn-generate:hover { opacity:0.88; }
-    .btn-generate:disabled { opacity:0.5; cursor:not-allowed; }
-
-    /* RÉSULTAT */
-    .result-card { background:var(--ink); border-radius:6px; padding:2rem; margin-top:1.5rem; display:none; }
-    .result-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
-    .result-label { font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); font-weight:600; }
-    .btn-copy { background:transparent; border:1px solid rgba(201,168,76,0.4); color:var(--gold); padding:0.4rem 1rem; border-radius:2px; font-size:0.78rem; cursor:pointer; font-family:'Inter',sans-serif; }
-    .result-text { font-size:0.88rem; color:rgba(255,255,255,0.85); line-height:1.75; white-space:pre-wrap; }
-    .result-timer { font-size:0.72rem; color:var(--gold); margin-top:1rem; font-weight:600; }
-
-    /* PAYWALL */
-    .paywall { background:var(--parchment); border:2px solid var(--gold); border-radius:6px; padding:2rem; margin-top:1.5rem; text-align:center; display:none; }
-    .paywall-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--ink); margin-bottom:0.5rem; }
-    .paywall-desc { font-size:0.88rem; color:var(--gray); margin-bottom:1.5rem; line-height:1.6; }
-    .paywall-options { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-    .paywall-btn { padding:0.85rem 1.5rem; border:none; border-radius:3px; font-size:0.88rem; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
-    .paywall-btn.primary { background:var(--gold); color:var(--ink); }
-    .paywall-btn.secondary { background:var(--ink); color:var(--white); }
-
-    /* LOADING */
-    .loading { display:none; text-align:center; padding:2rem; }
-    .spinner { width:32px; height:32px; border:3px solid var(--mist); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 1rem; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-
-    /* FOOTER */
     footer { background:var(--ink); padding:1.5rem 2rem; text-align:center; border-top:1px solid rgba(201,168,76,0.15); }
     .footer-logo { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:900; color:var(--white); margin-bottom:0.4rem; }
     .footer-logo span { color:var(--gold); }
     .footer-text { font-size:0.72rem; color:rgba(255,255,255,0.3); }
     .footer-text a { color:rgba(255,255,255,0.3); text-decoration:none; }
-
-    /* RESPONSIVE */
     @media (max-width:600px) {
-      .hero, .pricing, .app-section { padding:2.5rem 1.25rem; }
+      .hero, .app-section, .pricing { padding:2.5rem 1.25rem; }
       nav { padding:1rem 1.25rem; }
-      .hero-stats { gap:1.2rem; }
       .paywall-options { flex-direction:column; }
     }
   </style>
 </head>
 <body>
 
-
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Avoca<span>IA</span></a>
   <a href="https://avocaia.eu" style="font-size:0.75rem;font-weight:700;color:#c9a84c;border:1px solid rgba(201,168,76,0.3);padding:0.4rem 1rem;border-radius:20px;text-decoration:none;">⚖️ Vous êtes avocat ?</a>
-  
 </nav>
 
 <!-- HERO -->
@@ -125,15 +95,14 @@
   <p class="hero-eyebrow">Vos droits, défendus facilement</p>
   <h1 class="hero-title">Rédigez vos courriers<br>juridiques en <em>quelques secondes.</em></h1>
   <p class="hero-sub">Contestation d'amende, litige locatif, réclamation assurance, résiliation de contrat — l'IA rédige, vous envoyez.</p>
-  </section>
+</section>
 
 <!-- APP -->
-<section class="app-section">
+<section class="app-section" id="app">
   <div class="app-inner">
-    <p class="section-label" style="text-align:center;font-size:0.85rem">Essayez maintenant</p>
-    <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.5rem)">Quel courrier souhaitez-vous rédiger ?</h2>
+    <p class="section-label">Essayez maintenant</p>
+    <h2 class="section-title">Quel courrier souhaitez-vous rédiger ?</h2>
 
-    <!-- CATEGORIES -->
     <div class="categories">
       <button class="cat-btn active" onclick="selectCat(this,'location')">🏠 Location</button>
       <button class="cat-btn" onclick="selectCat(this,'amende')">🚗 Amendes & PV</button>
@@ -146,39 +115,31 @@
       <button class="cat-btn" onclick="selectCat(this,'libre')">✏️ Demande libre</button>
     </div>
 
-    <!-- FORMULAIRE -->
     <div class="form-card">
       <h3 class="form-title" id="form-title">🏠 Courrier de location</h3>
-
       <div class="field" id="type-field">
         <label class="field-label">Type de courrier</label>
-        <select class="inp inp-select" id="type-select" onchange="updateForm()">
+        <select class="inp" id="type-select">
           <option value="">Sélectionner...</option>
         </select>
       </div>
-
       <div id="dynamic-fields"></div>
-
       <div class="field" id="libre-field" style="display:none">
         <label class="field-label">Décrivez votre situation</label>
-        <textarea class="inp" id="libre-text" rows="5" placeholder="Expliquez votre situation en détail : qui sont les parties, quel est le problème, ce que vous demandez..."></textarea>
+        <textarea class="inp" id="libre-text" rows="5" placeholder="Expliquez votre situation en détail..."></textarea>
       </div>
-
       <div class="field">
         <label class="field-label">Votre nom / prénom</label>
         <input class="inp" type="text" id="user-name" placeholder="Jean Dupont" />
       </div>
-
       <button class="btn-generate" id="btn-gen" onclick="generateCourrier()">Générer mon courrier →</button>
     </div>
 
-    <!-- LOADING -->
     <div class="loading" id="loading">
       <div class="spinner"></div>
       <p style="font-size:0.88rem;color:var(--gray)">Rédaction en cours...</p>
     </div>
 
-    <!-- RÉSULTAT GRATUIT (1er courrier) -->
     <div class="result-card" id="result-card">
       <div class="result-header">
         <span class="result-label">✅ Courrier généré</span>
@@ -188,10 +149,9 @@
       <div class="result-timer" id="result-timer"></div>
     </div>
 
-    <!-- PAYWALL -->
     <div class="paywall" id="paywall">
-      <div class="paywall-title">Votre courrier est prêt !</div>
-      <p class="paywall-desc">Vous avez utilisé votre courrier gratuit. Pour accéder à ce courrier et générer d'autres courriers, choisissez votre formule.</p>
+      <div class="paywall-title">Vous avez utilisé votre essai gratuit !</div>
+      <p class="paywall-desc">Pour générer d'autres courriers, choisissez votre formule ci-dessous.</p>
       <div class="paywall-options">
         <button class="paywall-btn primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les tarifs →</button>
         <button class="paywall-btn secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les forfaits →</button>
@@ -202,7 +162,7 @@
 
 <!-- TARIFS -->
 <section class="pricing" id="pricing">
-  <p class="section-label">Tarifs simples</p>
+  <p class="section-label" style="text-align:center">Tarifs simples</p>
   <h2 class="section-title">Choisissez votre formule.</h2>
   <div class="pricing-grid">
     <div class="pricing-card">
@@ -216,13 +176,13 @@
         <li>Style juridique français</li>
         <li>Valable 30 jours</li>
       </ul>
-      <button class="btn-pricing" onclick="selectPlan('unite')">Choisir</button>
+      <button class="btn-pricing">Choisir</button>
     </div>
     <div class="pricing-card featured">
       <div class="pricing-badge-card">Le plus populaire</div>
       <div class="pricing-plan">Forfait 5 courriers</div>
       <div class="pricing-price">5<span style="font-size:1rem;color:rgba(255,255,255,0.4)">€</span></div>
-      <p class="pricing-desc">5 courriers à utiliser quand vous voulez. 1€/courrier.</p>
+      <p class="pricing-desc">5 courriers à 1€ l'unité. Valables 1 an.</p>
       <div class="pricing-divider"></div>
       <ul class="pricing-features">
         <li>5 courriers juridiques</li>
@@ -230,7 +190,7 @@
         <li>Tous types de courriers</li>
         <li>Priorité de génération</li>
       </ul>
-      <button class="btn-pricing" onclick="selectPlan('forfait5')">Choisir</button>
+      <button class="btn-pricing">Choisir</button>
     </div>
     <div class="pricing-card">
       <div class="pricing-plan">Forfait 15 courriers</div>
@@ -243,7 +203,7 @@
         <li>Tous types de courriers</li>
         <li>Support prioritaire</li>
       </ul>
-      <button class="btn-pricing" onclick="selectPlan('forfait15')">Choisir</button>
+      <button class="btn-pricing">Choisir</button>
     </div>
   </div>
 </section>
@@ -251,5 +211,151 @@
 <footer>
   <div class="footer-logo">Avoca<span>IA</span></div>
   <p class="footer-text">© 2026 AvocaIA · <a href="/legal">Mentions légales</a> · <a href="/">Avocats professionnels →</a></p>
-</footer></body>
+</footer>
+
+<script>
+const CATEGORIES = {
+  location: {
+    title:'🏠 Courrier de location',
+    types:['Mise en demeure loyer impayé','Demande de restitution caution','Signalement de travaux urgents','Contestation charges locatives','Résiliation bail locataire','Demande état des lieux','Mise en demeure propriétaire'],
+    fields:[{id:'destinataire',label:'Nom du propriétaire / locataire',placeholder:'M. Martin'},{id:'adresse',label:'Adresse du bien',placeholder:'12 rue de la Paix, 75001 Paris'},{id:'montant',label:'Montant concerné',placeholder:'850€'},{id:'details',label:'Détails de la situation',placeholder:'Décrivez le contexte...',type:'textarea'}]
+  },
+  amende: {
+    title:"🚗 Contestation d'amende",
+    types:['Contestation PV stationnement','Contestation excès de vitesse','Contestation feu rouge','Contestation amende transport','Demande délai de paiement amende','Contestation amende VTC','Réclamation point de permis'],
+    fields:[{id:'num-amende',label:"Numéro de l'avis",placeholder:'1234567890'},{id:'date-infraction',label:"Date de l'infraction",placeholder:'01/09/2026'},{id:'lieu',label:"Lieu de l'infraction",placeholder:'Paris 8ème'},{id:'motif',label:'Motif de contestation',placeholder:"Je n'étais pas au volant...",type:'textarea'}]
+  },
+  assurance: {
+    title:'🛡️ Courrier assurance',
+    types:['Déclaration sinistre','Contestation refus remboursement','Mise en demeure assureur','Résiliation assurance','Demande expertise contradictoire','Réclamation indemnisation'],
+    fields:[{id:'assureur',label:"Nom de l'assureur",placeholder:'AXA / MAIF...'},{id:'contrat',label:'Numéro de contrat',placeholder:'123456789'},{id:'sinistre',label:'Nature du sinistre',placeholder:'Dégât des eaux...'},{id:'details',label:'Détails et demande',placeholder:'Expliquez...',type:'textarea'}]
+  },
+  resiliation: {
+    title:'📄 Résiliation de contrat',
+    types:['Résiliation abonnement téléphone','Résiliation salle de sport','Résiliation box internet','Résiliation abonnement presse','Résiliation contrat prestataire','Rétractation achat en ligne','Résiliation contrat énergie'],
+    fields:[{id:'societe',label:'Nom de la société',placeholder:'Orange / SFR...'},{id:'num-client',label:'Numéro client / contrat',placeholder:'0123456789'},{id:'motif-resil',label:'Motif (optionnel)',placeholder:'Déménagement...'}]
+  },
+  travail: {
+    title:'💼 Courrier de travail',
+    types:['Demande rupture conventionnelle','Contestation licenciement','Demande solde de tout compte','Signalement harcèlement','Demande congés non payés','Réclamation heures supplémentaires','Demande attestation employeur'],
+    fields:[{id:'employeur',label:"Nom de l'employeur",placeholder:'Société XYZ'},{id:'poste',label:'Votre poste',placeholder:'Commercial...'},{id:'date-embauche',label:"Date d'embauche",placeholder:'01/01/2020'},{id:'details',label:'Détails',placeholder:'Expliquez...',type:'textarea'}]
+  },
+  consommation: {
+    title:'🛒 Courrier consommation',
+    types:['Réclamation produit défectueux','Demande remboursement commande','Mise en demeure vendeur','Contestation facture abusive','Signalement pratique trompeuse','Demande garantie légale'],
+    fields:[{id:'vendeur',label:'Nom du vendeur',placeholder:'Amazon, Darty...'},{id:'produit',label:'Produit concerné',placeholder:'iPhone, Lave-linge...'},{id:'montant',label:'Montant',placeholder:'299€'},{id:'details',label:'Problème et demande',placeholder:'Décrivez...',type:'textarea'}]
+  },
+  banque: {
+    title:'🏦 Courrier banque',
+    types:['Contestation frais bancaires','Demande remboursement virement frauduleux','Réclamation découvert abusif','Demande mainlevée hypothèque','Contestation refus crédit','Demande clôture compte'],
+    fields:[{id:'banque',label:'Nom de la banque',placeholder:'BNP, Crédit Agricole...'},{id:'num-compte',label:'4 derniers chiffres compte',placeholder:'XXXX'},{id:'montant',label:'Montant contesté',placeholder:'150€'},{id:'details',label:'Détails',placeholder:'Expliquez...',type:'textarea'}]
+  },
+  voisinage: {
+    title:'🏘️ Courrier voisinage',
+    types:['Mise en demeure troubles du voisinage','Signalement nuisances sonores','Demande réparation dommages','Contestation empiètement propriété','Signalement travaux non conformes'],
+    fields:[{id:'voisin',label:'Nom du voisin / syndic',placeholder:'M. Dupont / Syndic ABC'},{id:'adresse',label:'Adresse concernée',placeholder:'12 rue...'},{id:'probleme',label:'Nature du problème',placeholder:'Bruit, dommages...'},{id:'details',label:'Détails',placeholder:'Expliquez...',type:'textarea'}]
+  },
+  libre:{title:'✏️ Demande libre',types:['Courrier personnalisé'],fields:[]}
+};
+
+let currentCat = 'location';
+let courriersGeneres = 0;
+
+function selectCat(btn, cat) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = cat;
+  updateForm();
+}
+
+function updateForm() {
+  const data = CATEGORIES[currentCat];
+  document.getElementById('form-title').textContent = data.title;
+  const select = document.getElementById('type-select');
+  const typeField = document.getElementById('type-field');
+  if (currentCat === 'libre') {
+    typeField.style.display = 'none';
+    document.getElementById('libre-field').style.display = 'block';
+  } else {
+    typeField.style.display = 'block';
+    document.getElementById('libre-field').style.display = 'none';
+    select.innerHTML = '<option value="">Sélectionner le type...</option>';
+    data.types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; select.appendChild(o); });
+  }
+  const dyn = document.getElementById('dynamic-fields');
+  dyn.innerHTML = '';
+  if (currentCat !== 'libre') {
+    data.fields.forEach(f => {
+      const div = document.createElement('div'); div.className = 'field';
+      div.innerHTML = f.type === 'textarea'
+        ? `<label class="field-label">${f.label}</label><textarea class="inp" id="${f.id}" rows="3" placeholder="${f.placeholder}"></textarea>`
+        : `<label class="field-label">${f.label}</label><input class="inp" type="text" id="${f.id}" placeholder="${f.placeholder}" />`;
+      dyn.appendChild(div);
+    });
+  }
+  document.getElementById('result-card').style.display = 'none';
+  document.getElementById('paywall').style.display = 'none';
+}
+
+async function generateCourrier() {
+  const name = document.getElementById('user-name').value.trim();
+  if (!name) { alert("Merci d'indiquer votre nom."); return; }
+
+  if (courriersGeneres >= 1) {
+    document.getElementById('paywall').style.display = 'block';
+    document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+
+  let prompt = '';
+  if (currentCat === 'libre') {
+    const texte = document.getElementById('libre-text').value.trim();
+    if (!texte) { alert('Merci de décrire votre situation.'); return; }
+    prompt = `Tu es un expert juridique français. Rédige un courrier juridique formel pour :\n\n${texte}\n\nExpéditeur : ${name}.\n\nRédige un courrier complet avec objet, corps et formule de clôture.`;
+  } else {
+    const type = document.getElementById('type-select').value;
+    if (!type) { alert('Merci de sélectionner un type.'); return; }
+    const data = CATEGORIES[currentCat];
+    let fieldsContent = '';
+    data.fields.forEach(f => { const el = document.getElementById(f.id); if (el && el.value.trim()) fieldsContent += `\n- ${f.label}: ${el.value.trim()}`; });
+    prompt = `Tu es un expert juridique français. Rédige un "${type}" pour ${name}.${fieldsContent}\n\nRédige un courrier complet, formel et juridiquement correct adapté au droit français.`;
+  }
+
+  const btn = document.getElementById('btn-gen');
+  btn.disabled = true; btn.textContent = 'Génération en cours...';
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('result-card').style.display = 'none';
+  const start = Date.now();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'Erreur.';
+    const elapsed = ((Date.now()-start)/1000).toFixed(1);
+    document.getElementById('result-text').textContent = text;
+    document.getElementById('result-timer').textContent = `⚡ Généré en ${elapsed} secondes`;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('result-card').style.display = 'block';
+    document.getElementById('result-card').scrollIntoView({behavior:'smooth'});
+    courriersGeneres++;
+  } catch(e) {
+    alert('Erreur de connexion.');
+    document.getElementById('loading').style.display = 'none';
+  }
+  btn.disabled = false; btn.textContent = 'Générer mon courrier →';
+}
+
+function copyCourrier() {
+  navigator.clipboard.writeText(document.getElementById('result-text').textContent);
+  const btn = event.target; btn.textContent = '✅ Copié !';
+  setTimeout(() => btn.textContent = '📋 Copier', 2000);
+}
+
+updateForm();
+</script>
+</body>
 </html>
