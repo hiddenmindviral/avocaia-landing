@@ -146,20 +146,15 @@
 
 
 <!-- BADGE FLOTTANT PARTICULIERS -->
-<a href="#particuliers-section" class="floating-badge" onclick="document.getElementById('particuliers-section').scrollIntoView({behavior:'smooth'}); return false;">
+<a href="#particuliers-section" onclick="document.getElementById('particuliers-section').scrollIntoView({behavior:'smooth'}); return false;" style="position:fixed;bottom:24px;right:24px;background:var(--gold);color:var(--ink);font-size:0.75rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:20px;cursor:pointer;z-index:200;box-shadow:0 4px 12px rgba(0,0,0,0.2);text-decoration:none;display:flex;align-items:center;gap:0.4rem;">
   👤 Vous êtes particulier ?
 </a>
 
 
-<!-- BADGE DÉMO -->
-<a href="/demo" style="position:fixed;top:130px;right:0;background:#1a1a2e;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-size:0.72rem;font-weight:700;padding:0.5rem 0.75rem 0.5rem 1rem;border-radius:4px 0 0 4px;cursor:pointer;z-index:200;box-shadow:-2px 2px 8px rgba(0,0,0,0.15);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:transform 0.2s;" onmouseover="this.style.transform='translateX(-4px)'" onmouseout="this.style.transform='translateX(0)'">
-  🧪 Tester sans inscription
-</a>
-
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Avoca<span>IA</span></div>
-  <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);">⚡ 10 jours gratuits</div>
+  <a href="/demo" style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--gold);text-decoration:none;padding:0.45rem 1rem;border-radius:2px;font-size:0.78rem;font-weight:600;font-family:'Inter',sans-serif;">🧪 Tester sans inscription</a>
 </nav>
 
 <!-- HERO -->
@@ -188,7 +183,7 @@
   <!-- FORMULAIRE -->
   <div class="hero-form">
     <div id="form-content">
-      <h3 class="hero-form-title">Accès bêta gratuit</h3>
+      <h3 class="hero-form-title">Accès complet 10 jours gratuit</h3>
       <p class="hero-form-sub">⏳ Places limitées · <strong>Sans carte bancaire</strong></p>
       <div class="form-row">
         <input class="hero-inp" type="email" id="hero-email" placeholder="votre@email.fr" />
