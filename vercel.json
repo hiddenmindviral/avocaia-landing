@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/particuliers", "dest": "/particuliers.html" },
+    { "src": "/demo", "dest": "/demo.html" },
+    { "src": "/legal", "dest": "/legal.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}
