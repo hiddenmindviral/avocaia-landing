@@ -129,66 +129,13 @@
   <p class="hero-eyebrow">Vos droits, défendus facilement</p>
   <h1 class="hero-title">Rédigez vos courriers<br>juridiques en <em>quelques secondes.</em></h1>
   <p class="hero-sub">Contestation d'amende, litige locatif, réclamation assurance, résiliation de contrat — l'IA rédige, vous envoyez.</p>
-  <div class="hero-stats">
-    <div><span class="hero-stat-num">30s</span><span class="hero-stat-label">par courrier</span></div>
-    <div><span class="hero-stat-num">1,50€</span><span class="hero-stat-label">par courrier</span></div>
-    <div><span class="hero-stat-num">100%</span><span class="hero-stat-label">juridique français</span></div>
-  </div>
-</section>
-
-<!-- TARIFS -->
-<section class="pricing">
-  <p class="section-label">Tarifs simples</p>
-  <h2 class="section-title">Choisissez votre formule.</h2>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="pricing-plan">À l'unité</div>
-      <div class="pricing-price">1,50<span style="font-size:1rem;color:var(--gray)">€</span></div>
-      <p class="pricing-desc">Par courrier généré. Idéal pour un besoin ponctuel.</p>
-      <div class="pricing-divider"></div>
-      <ul class="pricing-features">
-        <li>1 courrier juridique complet</li>
-        <li>Téléchargement immédiat</li>
-        <li>Style juridique français</li>
-        <li>Valable 30 jours</li>
-      </ul>
-      <button class="btn-pricing" onclick="selectPlan('unite')">Choisir</button>
-    </div>
-    <div class="pricing-card featured">
-      <div class="pricing-badge-card">Le plus populaire</div>
-      <div class="pricing-plan">Forfait 5 courriers</div>
-      <div class="pricing-price">5<span style="font-size:1rem;color:rgba(255,255,255,0.4)">€</span></div>
-      <p class="pricing-desc">5 courriers à utiliser quand vous voulez. 1€/courrier.</p>
-      <div class="pricing-divider"></div>
-      <ul class="pricing-features">
-        <li>5 courriers juridiques</li>
-        <li>Valables 1 an</li>
-        <li>Tous types de courriers</li>
-        <li>Priorité de génération</li>
-      </ul>
-      <button class="btn-pricing" onclick="selectPlan('forfait5')">Choisir</button>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-plan">Forfait 15 courriers</div>
-      <div class="pricing-price">10<span style="font-size:1rem;color:var(--gray)">€</span></div>
-      <p class="pricing-desc">15 courriers à 0,67€ l'unité. Pour les besoins récurrents.</p>
-      <div class="pricing-divider"></div>
-      <ul class="pricing-features">
-        <li>15 courriers juridiques</li>
-        <li>Valables 1 an</li>
-        <li>Tous types de courriers</li>
-        <li>Support prioritaire</li>
-      </ul>
-      <button class="btn-pricing" onclick="selectPlan('forfait15')">Choisir</button>
-    </div>
-  </div>
-</section>
+  </section>
 
 <!-- APP -->
 <section class="app-section">
   <div class="app-inner">
-    <p class="section-label" style="text-align:center">Essayez maintenant</p>
-    <h2 class="section-title">Quel courrier souhaitez-vous rédiger ?</h2>
+    <p class="section-label" style="text-align:center;font-size:0.85rem">Essayez maintenant</p>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.5rem)">Quel courrier souhaitez-vous rédiger ?</h2>
 
     <!-- CATEGORIES -->
     <div class="categories">
@@ -250,9 +197,57 @@
       <div class="paywall-title">Votre courrier est prêt !</div>
       <p class="paywall-desc">Vous avez utilisé votre courrier gratuit. Pour accéder à ce courrier et générer d'autres courriers, choisissez votre formule.</p>
       <div class="paywall-options">
-        <button class="paywall-btn primary" onclick="window.location.href='#pricing'">1,50€ — Ce courrier uniquement</button>
-        <button class="paywall-btn secondary" onclick="window.location.href='#pricing'">5€ — Forfait 5 courriers</button>
+        <button class="paywall-btn primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les tarifs →</button>
+        <button class="paywall-btn secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les forfaits →</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="pricing" id="pricing">
+  <p class="section-label">Tarifs simples</p>
+  <h2 class="section-title">Choisissez votre formule.</h2>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-plan">À l'unité</div>
+      <div class="pricing-price">1,50<span style="font-size:1rem;color:var(--gray)">€</span></div>
+      <p class="pricing-desc">Par courrier généré. Idéal pour un besoin ponctuel.</p>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>1 courrier juridique complet</li>
+        <li>Téléchargement immédiat</li>
+        <li>Style juridique français</li>
+        <li>Valable 30 jours</li>
+      </ul>
+      <button class="btn-pricing" onclick="selectPlan('unite')">Choisir</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge-card">Le plus populaire</div>
+      <div class="pricing-plan">Forfait 5 courriers</div>
+      <div class="pricing-price">5<span style="font-size:1rem;color:rgba(255,255,255,0.4)">€</span></div>
+      <p class="pricing-desc">5 courriers à utiliser quand vous voulez. 1€/courrier.</p>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>5 courriers juridiques</li>
+        <li>Valables 1 an</li>
+        <li>Tous types de courriers</li>
+        <li>Priorité de génération</li>
+      </ul>
+      <button class="btn-pricing" onclick="selectPlan('forfait5')">Choisir</button>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-plan">Forfait 15 courriers</div>
+      <div class="pricing-price">10<span style="font-size:1rem;color:var(--gray)">€</span></div>
+      <p class="pricing-desc">15 courriers à 0,67€ l'unité. Pour les besoins récurrents.</p>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>15 courriers juridiques</li>
+        <li>Valables 1 an</li>
+        <li>Tous types de courriers</li>
+        <li>Support prioritaire</li>
+      </ul>
+      <button class="btn-pricing" onclick="selectPlan('forfait15')">Choisir</button>
     </div>
   </div>
 </section>
@@ -260,286 +255,5 @@
 <footer>
   <div class="footer-logo">Avoca<span>IA</span></div>
   <p class="footer-text">© 2026 AvocaIA · <a href="/legal">Mentions légales</a> · <a href="/">Avocats professionnels →</a></p>
-</footer>
-
-<script>
-// ── DONNÉES PAR CATÉGORIE ─────────────────────────
-const CATEGORIES = {
-  location: {
-    title: '🏠 Courrier de location',
-    types: [
-      'Mise en demeure loyer impayé',
-      'Demande de restitution caution',
-      'Signalement de travaux urgents',
-      'Contestation charges locatives',
-      'Résiliation bail locataire',
-      'Demande état des lieux',
-      'Mise en demeure propriétaire',
-    ],
-    fields: [
-      {id:'destinataire', label:'Nom du propriétaire / locataire', placeholder:'M. Martin'},
-      {id:'adresse', label:'Adresse du bien', placeholder:'12 rue de la Paix, 75001 Paris'},
-      {id:'montant', label:'Montant concerné (si applicable)', placeholder:'850€'},
-      {id:'details', label:'Détails de la situation', placeholder:'Décrivez le contexte...', type:'textarea'},
-    ]
-  },
-  amende: {
-    title: '🚗 Contestation d\'amende',
-    types: [
-      'Contestation PV stationnement',
-      'Contestation excès de vitesse',
-      'Contestation feu rouge',
-      'Contestation amende transport',
-      'Demande délai de paiement amende',
-      'Contestation amende VTC',
-      'Réclamation point de permis',
-    ],
-    fields: [
-      {id:'num-amende', label:'Numéro de l\'avis', placeholder:'1234567890'},
-      {id:'date-infraction', label:'Date de l\'infraction', placeholder:'01/09/2026'},
-      {id:'lieu', label:'Lieu de l\'infraction', placeholder:'Paris 8ème'},
-      {id:'motif', label:'Motif de contestation', placeholder:'Je n\'étais pas au volant / Le panneau était illisible...', type:'textarea'},
-    ]
-  },
-  assurance: {
-    title: '🛡️ Courrier assurance',
-    types: [
-      'Déclaration sinistre',
-      'Contestation refus remboursement',
-      'Mise en demeure assureur',
-      'Résiliation assurance',
-      'Demande expertise contradictoire',
-      'Réclamation indemnisation',
-    ],
-    fields: [
-      {id:'assureur', label:'Nom de l\'assureur', placeholder:'AXA / MAIF / Groupama...'},
-      {id:'contrat', label:'Numéro de contrat', placeholder:'123456789'},
-      {id:'sinistre', label:'Nature du sinistre / problème', placeholder:'Dégât des eaux, accident...'},
-      {id:'details', label:'Détails et demande', placeholder:'Expliquez votre situation...', type:'textarea'},
-    ]
-  },
-  resiliation: {
-    title: '📄 Résiliation de contrat',
-    types: [
-      'Résiliation abonnement téléphone',
-      'Résiliation salle de sport',
-      'Résiliation box internet',
-      'Résiliation abonnement presse',
-      'Résiliation contrat prestataire',
-      'Rétractation achat en ligne',
-      'Résiliation contrat énergie',
-    ],
-    fields: [
-      {id:'societe', label:'Nom de la société', placeholder:'Orange / SFR / Basic-Fit...'},
-      {id:'num-client', label:'Numéro client / contrat', placeholder:'0123456789'},
-      {id:'motif-resil', label:'Motif (optionnel)', placeholder:'Déménagement, insatisfaction...'},
-    ]
-  },
-  travail: {
-    title: '💼 Courrier de travail',
-    types: [
-      'Demande rupture conventionnelle',
-      'Contestation licenciement',
-      'Demande solde de tout compte',
-      'Signalement harcèlement',
-      'Demande congés non payés',
-      'Réclamation heures supplémentaires',
-      'Demande attestation employeur',
-    ],
-    fields: [
-      {id:'employeur', label:'Nom de l\'employeur / société', placeholder:'Société XYZ'},
-      {id:'poste', label:'Votre poste', placeholder:'Commercial, Développeur...'},
-      {id:'date-embauche', label:'Date d\'embauche', placeholder:'01/01/2020'},
-      {id:'details', label:'Détails de la situation', placeholder:'Expliquez votre situation...', type:'textarea'},
-    ]
-  },
-  consommation: {
-    title: '🛒 Courrier consommation',
-    types: [
-      'Réclamation produit défectueux',
-      'Demande remboursement commande',
-      'Mise en demeure vendeur',
-      'Contestation facture abusive',
-      'Signalement pratique commerciale trompeuse',
-      'Demande garantie légale',
-    ],
-    fields: [
-      {id:'vendeur', label:'Nom du vendeur / site', placeholder:'Amazon, Darty...'},
-      {id:'produit', label:'Produit concerné', placeholder:'iPhone 15, Lave-linge...'},
-      {id:'montant', label:'Montant', placeholder:'299€'},
-      {id:'details', label:'Problème et demande', placeholder:'Décrivez le problème...', type:'textarea'},
-    ]
-  },
-  banque: {
-    title: '🏦 Courrier banque',
-    types: [
-      'Contestation frais bancaires',
-      'Demande remboursement virement frauduleux',
-      'Réclamation découvert abusif',
-      'Demande mainlevée hypothèque',
-      'Contestation refus crédit',
-      'Demande clôture compte',
-    ],
-    fields: [
-      {id:'banque', label:'Nom de la banque', placeholder:'BNP Paribas, Crédit Agricole...'},
-      {id:'num-compte', label:'Numéro de compte (4 derniers chiffres)', placeholder:'XXXX'},
-      {id:'montant', label:'Montant contesté', placeholder:'150€'},
-      {id:'details', label:'Détails et demande', placeholder:'Expliquez votre situation...', type:'textarea'},
-    ]
-  },
-  voisinage: {
-    title: '🏘️ Courrier voisinage',
-    types: [
-      'Mise en demeure troubles du voisinage',
-      'Signalement nuisances sonores',
-      'Demande réparation dommages',
-      'Contestation empiètement propriété',
-      'Signalement travaux non conformes',
-    ],
-    fields: [
-      {id:'voisin', label:'Nom du voisin / syndic', placeholder:'M. Dupont / Syndic ABC'},
-      {id:'adresse', label:'Adresse concernée', placeholder:'12 rue de la Paix...'},
-      {id:'probleme', label:'Nature du problème', placeholder:'Bruit, dommages, empiètement...'},
-      {id:'details', label:'Détails et demande', placeholder:'Expliquez la situation...', type:'textarea'},
-    ]
-  },
-  libre: {
-    title: '✏️ Demande libre',
-    types: ['Courrier personnalisé'],
-    fields: []
-  }
-};
-
-let currentCat = 'location';
-let courriersGeneres = 0;
-let selectedPlan = null;
-
-function selectCat(btn, cat) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentCat = cat;
-  updateForm();
-}
-
-function updateForm() {
-  const data = CATEGORIES[currentCat];
-  document.getElementById('form-title').textContent = data.title;
-
-  // Types
-  const select = document.getElementById('type-select');
-  const typeField = document.getElementById('type-field');
-  if (currentCat === 'libre') {
-    typeField.style.display = 'none';
-    document.getElementById('libre-field').style.display = 'block';
-  } else {
-    typeField.style.display = 'block';
-    document.getElementById('libre-field').style.display = 'none';
-    select.innerHTML = '<option value="">Sélectionner le type de courrier...</option>';
-    data.types.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t; opt.textContent = t;
-      select.appendChild(opt);
-    });
-  }
-
-  // Champs dynamiques
-  const dynFields = document.getElementById('dynamic-fields');
-  dynFields.innerHTML = '';
-  if (currentCat !== 'libre') {
-    data.fields.forEach(f => {
-      const div = document.createElement('div');
-      div.className = 'field';
-      if (f.type === 'textarea') {
-        div.innerHTML = `<label class="field-label">${f.label}</label><textarea class="inp" id="${f.id}" rows="3" placeholder="${f.placeholder}"></textarea>`;
-      } else {
-        div.innerHTML = `<label class="field-label">${f.label}</label><input class="inp" type="text" id="${f.id}" placeholder="${f.placeholder}" />`;
-      }
-      dynFields.appendChild(div);
-    });
-  }
-
-  // Reset résultats
-  document.getElementById('result-card').style.display = 'none';
-  document.getElementById('paywall').style.display = 'none';
-}
-
-function selectPlan(plan) {
-  selectedPlan = plan;
-  document.getElementById('app-section').scrollIntoView({behavior:'smooth'});
-}
-
-async function generateCourrier() {
-  const name = document.getElementById('user-name').value.trim();
-  if (!name) { alert('Merci d\'indiquer votre nom.'); return; }
-
-  let prompt = '';
-  if (currentCat === 'libre') {
-    const texte = document.getElementById('libre-text').value.trim();
-    if (!texte) { alert('Merci de décrire votre situation.'); return; }
-    prompt = `Tu es un expert juridique français. Rédige un courrier juridique formel en français pour la situation suivante :\n\n${texte}\n\nL'expéditeur s'appelle ${name}.\n\nRédige un courrier complet, professionnel et juridiquement correct, avec objet, formule de politesse d'ouverture et de clôture.`;
-  } else {
-    const type = document.getElementById('type-select').value;
-    if (!type) { alert('Merci de sélectionner un type de courrier.'); return; }
-    const data = CATEGORIES[currentCat];
-    let fieldsContent = '';
-    data.fields.forEach(f => {
-      const el = document.getElementById(f.id);
-      if (el && el.value.trim()) fieldsContent += `\n- ${f.label}: ${el.value.trim()}`;
-    });
-    prompt = `Tu es un expert juridique français. Rédige un courrier de type "${type}" en français pour ${name}.${fieldsContent}\n\nRédige un courrier complet, formel et juridiquement correct adapté au droit français, avec objet, corps et formule de clôture professionnelle. Sois précis et utilisez les bons termes juridiques.`;
-  }
-
-  // Paywall après 1 courrier gratuit
-  if (courriersGeneres >= 1) {
-    document.getElementById('paywall').style.display = 'block';
-    document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
-    return;
-  }
-
-  const btn = document.getElementById('btn-gen');
-  btn.disabled = true; btn.textContent = 'Génération en cours...';
-  document.getElementById('loading').style.display = 'block';
-  document.getElementById('result-card').style.display = 'none';
-
-  const start = Date.now();
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.[0]?.text || 'Erreur lors de la génération.';
-    const elapsed = ((Date.now() - start) / 1000).toFixed(1);
-
-    document.getElementById('result-text').textContent = text;
-    document.getElementById('result-timer').textContent = `⚡ Généré en ${elapsed} secondes`;
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('result-card').style.display = 'block';
-    document.getElementById('result-card').scrollIntoView({behavior:'smooth'});
-    courriersGeneres++;
-  } catch(e) {
-    alert('Erreur de connexion. Réessayez.');
-    document.getElementById('loading').style.display = 'none';
-  }
-  btn.disabled = false; btn.textContent = 'Générer mon courrier →';
-}
-
-function copyCourrier() {
-  navigator.clipboard.writeText(document.getElementById('result-text').textContent);
-  const btn = event.target;
-  btn.textContent = '✅ Copié !';
-  setTimeout(() => btn.textContent = '📋 Copier', 2000);
-}
-
-// Init
-updateForm();
-</script>
-</body>
+</footer></body>
 </html>
-
