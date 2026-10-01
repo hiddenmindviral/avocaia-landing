@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AvocaIA — Testez gratuitement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --ink:#1a1a2e; --gold:#c9a84c; --goldLight:#e8d5a0; --parchment:#f5f0e8; --mist:#e8e4dc; --white:#ffffff; --gray:#666; }
+    body { font-family:'Inter',sans-serif; background:var(--parchment); color:var(--ink); min-height:100vh; }
+
+    nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; background:var(--ink); border-bottom:1px solid rgba(201,168,76,0.15); }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; }
+    .nav-logo span { color:var(--gold); }
+    .nav-cta { background:var(--gold); color:var(--ink); text-decoration:none; padding:0.5rem 1.2rem; border-radius:2px; font-size:0.82rem; font-weight:700; }
+
+    .hero { background:var(--ink); padding:3rem 2rem; text-align:center; }
+    .hero-badge { display:inline-block; background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3); color:var(--gold); font-size:0.72rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; padding:0.35rem 1rem; border-radius:20px; margin-bottom:1.2rem; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; color:var(--white); line-height:1.15; margin-bottom:0.75rem; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:0.95rem; color:rgba(255,255,255,0.6); max-width:480px; margin:0 auto; line-height:1.65; }
+
+    .demo-container { max-width:860px; margin:0 auto; padding:2.5rem 1.5rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
+
+    /* FORMULAIRE */
+    .form-card { background:var(--white); border-radius:6px; padding:1.75rem; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+    .form-card-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--ink); margin-bottom:1.2rem; }
+    .field { margin-bottom:1rem; }
+    .field-label { display:block; font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray); margin-bottom:0.35rem; }
+    .inp { width:100%; padding:0.75rem 1rem; border:1px solid var(--mist); border-radius:3px; font-size:0.88rem; font-family:'Inter',sans-serif; color:var(--ink); background:var(--parchment); outline:none; transition:border-color 0.2s; }
+    .inp:focus { border-color:var(--gold); background:var(--white); }
+    .btn-gen { width:100%; padding:0.95rem; background:var(--gold); color:var(--ink); border:none; border-radius:3px; font-size:0.95rem; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; transition:opacity 0.2s; }
+    .btn-gen:hover { opacity:0.88; }
+    .btn-gen:disabled { opacity:0.5; cursor:not-allowed; }
+    .note { font-size:0.72rem; color:#aaa; text-align:center; margin-top:0.75rem; line-height:1.5; }
+
+    /* RÉSULTAT */
+    .result-card { background:var(--ink); border-radius:6px; padding:1.75rem; min-height:300px; display:flex; flex-direction:column; }
+    .result-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+    .result-label { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+    .result-placeholder { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem 0; }
+    .result-placeholder-icon { font-size:3rem; margin-bottom:1rem; opacity:0.4; }
+    .result-placeholder-text { font-size:0.85rem; color:rgba(255,255,255,0.3); line-height:1.6; }
+    .result-body { display:none; flex:1; flex-direction:column; }
+    .result-text { font-size:0.82rem; color:rgba(255,255,255,0.85); line-height:1.75; white-space:pre-wrap; flex:1; }
+    .result-timer { font-size:0.7rem; color:var(--gold); font-weight:600; margin-top:0.75rem; }
+    .spinner { width:28px; height:28px; border:3px solid rgba(255,255,255,0.1); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 1rem; display:none; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* PAYWALL */
+    .paywall-overlay { display:none; position:absolute; inset:0; background:rgba(26,26,46,0.95); border-radius:6px; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; backdrop-filter:blur(4px); }
+    .paywall-overlay.show { display:flex; }
+    .result-wrapper { position:relative; }
+    .paywall-title { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); margin-bottom:0.75rem; }
+    .paywall-sub { font-size:0.82rem; color:rgba(255,255,255,0.6); margin-bottom:1.5rem; line-height:1.6; }
+    .btn-signup { display:block; width:100%; background:var(--gold); color:var(--ink); text-decoration:none; padding:1rem; border-radius:3px; font-size:0.92rem; font-weight:700; margin-bottom:0.75rem; font-family:'Inter',sans-serif; border:none; cursor:pointer; }
+    .btn-signup-outline { display:block; width:100%; background:transparent; color:rgba(255,255,255,0.6); text-decoration:none; padding:0.75rem; border-radius:3px; font-size:0.82rem; border:1px solid rgba(255,255,255,0.15); font-family:'Inter',sans-serif; cursor:pointer; }
+
+    /* CTA BAS */
+    .cta-section { background:var(--ink); padding:3rem 2rem; text-align:center; }
+    .cta-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; color:var(--white); margin-bottom:0.5rem; }
+    .cta-title span { color:var(--gold); }
+    .cta-sub { font-size:0.88rem; color:rgba(255,255,255,0.5); margin-bottom:1.5rem; }
+    .cta-btn { display:inline-block; background:var(--gold); color:var(--ink); text-decoration:none; padding:1rem 2.5rem; border-radius:3px; font-size:0.95rem; font-weight:700; font-family:'Inter',sans-serif; }
+    .cta-trust { display:flex; gap:1.2rem; justify-content:center; margin-top:1rem; flex-wrap:wrap; }
+    .trust-item { font-size:0.72rem; color:rgba(255,255,255,0.35); display:flex; align-items:center; gap:0.3rem; }
+    .trust-item::before { content:'✓'; color:var(--gold); }
+
+    footer { background:var(--ink); border-top:1px solid rgba(201,168,76,0.1); padding:1.2rem 2rem; text-align:center; }
+    .footer-text { font-size:0.72rem; color:rgba(255,255,255,0.25); }
+    .footer-text a { color:rgba(255,255,255,0.25); text-decoration:none; }
+
+    @media (max-width:700px) {
+      .demo-container { grid-template-columns:1fr; padding:1.5rem 1rem; }
+      nav { padding:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Avoca<span>IA</span></a>
+  <a href="/#beta" class="nav-cta">Accès complet gratuit →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✨ Démo gratuite — sans inscription</div>
+  <h1>Testez AvocaIA<br>en <span>conditions réelles.</span></h1>
+  <p>Générez un document juridique maintenant. Aucune inscription requise, aucune carte bancaire.</p>
+</div>
+
+<div class="demo-container">
+
+  <!-- FORMULAIRE -->
+  <div class="form-card">
+    <h3 class="form-card-title">✍️ Module Rédaction</h3>
+
+    <div class="field">
+      <label class="field-label">Type de document</label>
+      <select class="inp" id="doc-type">
+        <option value="">Sélectionner...</option>
+        <optgroup label="Courriers courants">
+          <option value="mise-en-demeure">Mise en demeure</option>
+          <option value="relance-honoraires">Relance honoraires</option>
+          <option value="resiliation-mandat">Résiliation de mandat</option>
+          <option value="courrier-client">Courrier client</option>
+        </optgroup>
+        <optgroup label="Documents juridiques">
+          <option value="conclusions">Trame de conclusions</option>
+          <option value="contrat-prestation">Contrat de prestation</option>
+          <option value="assignation">Préparation assignation</option>
+        </optgroup>
+        <optgroup label="Relances & recouvrement">
+          <option value="relance-impaye">Relance impayé</option>
+          <option value="mise-en-demeure-2">Mise en demeure 2ème envoi</option>
+          <option value="demande-delai">Demande de délai de paiement</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Destinataire</label>
+      <input class="inp" type="text" id="destinataire" placeholder="M. Dupont ou SARL Exemple" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Objet principal</label>
+      <input class="inp" type="text" id="objet" placeholder="Impayé facture n°2026-034 — 4 500 €" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Contexte (optionnel)</label>
+      <textarea class="inp" id="contexte" rows="3" placeholder="Date de la prestation, rappels précédents, délai accordé..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Cabinet / Avocat</label>
+      <input class="inp" type="text" id="cabinet" placeholder="Maître Dupont — Cabinet Dupont & Associés" />
+    </div>
+
+    <button class="btn-gen" id="btn-gen" onclick="generateDoc()">Générer le document →</button>
+    <p class="note">1 document gratuit · Sans inscription · Sans carte bancaire</p>
+  </div>
+
+  <!-- RÉSULTAT -->
+  <div class="result-wrapper">
+    <div class="result-card" id="result-card">
+      <div class="result-header">
+        <span class="result-label" id="result-label">Document généré</span>
+      </div>
+      <div class="spinner" id="spinner"></div>
+      <div class="result-placeholder" id="result-placeholder">
+        <div class="result-placeholder-icon">⚖️</div>
+        <p class="result-placeholder-text">Remplissez le formulaire et cliquez sur "Générer"<br>— votre document apparaît ici en quelques secondes.</p>
+      </div>
+      <div class="result-body" id="result-body">
+        <div class="result-text" id="result-text"></div>
+        <div class="result-timer" id="result-timer"></div>
+      </div>
+    </div>
+    <div class="paywall-overlay" id="paywall">
+      <div style="font-size:2.5rem;margin-bottom:1rem">⚖️</div>
+      <div class="paywall-title">Votre document est prêt !</div>
+      <p class="paywall-sub">Inscrivez-vous gratuitement pour accéder au document complet et générer des documents illimités pendant 10 jours.</p>
+      <a href="/#beta" class="btn-signup">Accéder gratuitement — 10 jours offerts →</a>
+      <button class="btn-signup-outline" onclick="showBlurred()">Voir un aperçu flou</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">Vous avez vu ce qu'Avoca<span>IA</span> fait.</h2>
+  <p class="cta-sub">Accédez à tous les modules — rédaction illimitée, veille juridique, CRM, analyse de documents.</p>
+  <a href="/#beta" class="cta-btn">Commencer 10 jours gratuits →</a>
+  <div class="cta-trust">
+    <span class="trust-item">Sans carte bancaire</span>
+    <span class="trust-item">Sans engagement</span>
+    <span class="trust-item">Accès complet</span>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text"><a href="/">avocaia.eu</a> · <a href="/legal">Mentions légales</a></p>
+</footer>
+
+<script>
+let demoUsed = false;
+let generatedText = '';
+
+async function generateDoc() {
+  const type = document.getElementById('doc-type').value;
+  const dest = document.getElementById('destinataire').value.trim();
+  const objet = document.getElementById('objet').value.trim();
+  const contexte = document.getElementById('contexte').value.trim();
+  const cabinet = document.getElementById('cabinet').value.trim();
+
+  if (!type || !dest || !objet) {
+    alert('Merci de remplir le type de document, le destinataire et l\'objet.');
+    return;
+  }
+
+  const typeLabels = {
+    'mise-en-demeure': 'mise en demeure',
+    'relance-honoraires': 'relance d\'honoraires',
+    'resiliation-mandat': 'résiliation de mandat',
+    'courrier-client': 'courrier client',
+    'conclusions': 'trame de conclusions',
+    'contrat-prestation': 'contrat de prestation de services',
+    'assignation': 'courrier de préparation d\'assignation',
+    'relance-impaye': 'relance pour impayé',
+    'mise-en-demeure-2': 'mise en demeure (2ème envoi)',
+    'demande-delai': 'demande de délai de paiement',
+  };
+
+  const prompt = `Tu es un assistant juridique expert en droit français. Rédige un(e) ${typeLabels[type] || type} professionnel(le) avec les informations suivantes :
+
+- Destinataire : ${dest}
+- Objet : ${objet}${contexte ? '\n- Contexte : ' + contexte : ''}${cabinet ? '\n- Expéditeur : ' + cabinet : ''}
+
+Rédige un document complet, formel et juridiquement correct, adapté au droit français. Inclus l'objet, le corps du document et la formule de clôture professionnelle. Utilise les bons termes juridiques.`;
+
+  const btn = document.getElementById('btn-gen');
+  btn.disabled = true; btn.textContent = 'Génération en cours...';
+  document.getElementById('spinner').style.display = 'block';
+  document.getElementById('result-placeholder').style.display = 'none';
+  document.getElementById('result-body').style.display = 'none';
+  document.getElementById('result-label').textContent = 'Génération en cours...';
+
+  const start = Date.now();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    generatedText = data.content?.[0]?.text || 'Erreur lors de la génération.';
+    const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('result-label').textContent = '✅ Document généré';
+
+    if (demoUsed) {
+      // Afficher flou + paywall
+      document.getElementById('result-text').textContent = generatedText;
+      document.getElementById('result-timer').textContent = `⚡ Généré en ${elapsed} secondes`;
+      document.getElementById('result-body').style.display = 'flex';
+      document.getElementById('result-body').style.filter = 'blur(4px)';
+      document.getElementById('paywall').classList.add('show');
+    } else {
+      document.getElementById('result-text').textContent = generatedText;
+      document.getElementById('result-timer').textContent = `⚡ Généré en ${elapsed} secondes`;
+      document.getElementById('result-body').style.display = 'flex';
+      demoUsed = true;
+    }
+  } catch(e) {
+    alert('Erreur de connexion. Réessayez.');
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('result-placeholder').style.display = 'flex';
+    document.getElementById('result-label').textContent = 'Document généré';
+  }
+  btn.disabled = false; btn.textContent = 'Générer le document →';
+}
+
+function showBlurred() {
+  document.getElementById('paywall').classList.remove('show');
+}
+</script>
+</body>
+</html>
